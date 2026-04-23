@@ -3,6 +3,7 @@
 interface Tab {
   key: string;
   label: string;
+  count?: number;
 }
 
 interface TabSwitchProps {
@@ -13,23 +14,33 @@ interface TabSwitchProps {
 
 export function TabSwitch({ tabs, activeKey, onChange }: TabSwitchProps) {
   return (
-    <div className="flex border-b border-border bg-card">
-      {tabs.map((tab) => (
-        <button
-          key={tab.key}
-          onClick={() => onChange(tab.key)}
-          className={`flex-1 py-3 text-sm font-medium transition-colors relative ${
-            activeKey === tab.key
-              ? "text-primary"
-              : "text-muted hover:text-foreground"
-          }`}
-        >
-          {tab.label}
-          {activeKey === tab.key && (
-            <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-primary rounded-full" />
-          )}
-        </button>
-      ))}
+    <div className="px-4 py-2 bg-card">
+      <div className="flex items-center p-1 bg-secondary rounded-lg">
+        {tabs.map((tab) => (
+          <button
+            key={tab.key}
+            onClick={() => onChange(tab.key)}
+            className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 text-sm font-medium transition-all rounded-md btn-press ${
+              activeKey === tab.key
+                ? "bg-card text-foreground card-shadow"
+                : "text-foreground-secondary hover:text-foreground"
+            }`}
+          >
+            {tab.label}
+            {tab.count !== undefined && (
+              <span
+                className={`text-xs px-1.5 py-0.5 rounded-full ${
+                  activeKey === tab.key
+                    ? "bg-primary/10 text-primary"
+                    : "bg-muted text-muted-foreground"
+                }`}
+              >
+                {tab.count}
+              </span>
+            )}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

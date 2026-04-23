@@ -1,6 +1,7 @@
 "use client";
 
 import { use, useState } from "react";
+import { AlertTriangle } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { FormSection } from "@/components/form-section";
 import { FormField } from "@/components/form-field";
@@ -28,7 +29,7 @@ export default function InvoiceApplyPage({
     amount: invoice?.amount?.toString() || "",
     taxRate: invoice?.taxRate || "",
     invoiceType: invoice?.invoiceType || "反向开票",
-    invoiceCategory: "",
+    invoiceCategory: "二手车销售统一发票",
     billingPartyType: invoice?.billingPartyType || "经营单位",
     registrationNumber: "",
     licensePlate: invoice?.licensePlate || "",
@@ -55,14 +56,21 @@ export default function InvoiceApplyPage({
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
+  const formatAmount = (amount: string) => {
+    const num = parseFloat(amount);
+    if (isNaN(num)) return "-";
+    return `¥${num.toLocaleString("zh-CN", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+  };
+
   const handleSave = () => {
-    // 仅保存
     alert("已保存");
     router.back();
   };
 
   const handleSaveAndSubmit = () => {
-    // 保存并开票
     alert("已提交开票申请");
     router.push("/");
   };
@@ -71,8 +79,11 @@ export default function InvoiceApplyPage({
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <PageHeader title="申请开票" />
-        <div className="flex-1 flex items-center justify-center">
-          <p className="text-muted">发票不存在</p>
+        <div className="flex-1 flex flex-col items-center justify-center">
+          <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mb-4">
+            <AlertTriangle className="w-8 h-8 text-muted-foreground" />
+          </div>
+          <p className="text-foreground-secondary">发票不存在</p>
         </div>
       </div>
     );
@@ -80,11 +91,11 @@ export default function InvoiceApplyPage({
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <PageHeader title="申请开票" />
+      <PageHeader title="申请开票" variant="primary" />
 
-      <main className="flex-1 overflow-auto pb-24">
+      <main className="flex-1 overflow-auto pb-28 pt-4">
         {/* 订单基本信息 */}
-        <FormSection title="订单基本信息：">
+        <FormSection title="订单基本信息">
           <FormField
             label="发票申请编号"
             value={formData.applicationNumber}
@@ -102,7 +113,7 @@ export default function InvoiceApplyPage({
           />
           <FormField
             label="开票金额"
-            value={formData.amount}
+            value={formatAmount(formData.amount)}
             type="readonly"
           />
           <FormField
@@ -118,7 +129,6 @@ export default function InvoiceApplyPage({
           <FormField
             label="发票类别"
             value={formData.invoiceCategory}
-            placeholder="请输入发票类别"
             type="select"
           />
           <FormField
@@ -189,14 +199,14 @@ export default function InvoiceApplyPage({
         </FormSection>
 
         {/* 买方信息 */}
-        <FormSection title="买方信息：">
+        <FormSection title="买方信息">
           <FormField
             label="买方名称"
             value={formData.buyerName}
             type="readonly"
           />
           <FormField
-            label="身份证号码/税号"
+            label="身份证/税号"
             value={formData.buyerIdNumber}
             type="readonly"
           />
@@ -206,14 +216,14 @@ export default function InvoiceApplyPage({
             type="readonly"
           />
           <FormField
-            label="买方"
+            label="联系电话"
             value={formData.buyerPhone}
             type="readonly"
           />
         </FormSection>
 
         {/* 卖方信息 */}
-        <FormSection title="卖方信息：">
+        <FormSection title="卖方信息">
           <FormField
             label="卖方名称"
             value={formData.sellerName}
@@ -225,12 +235,12 @@ export default function InvoiceApplyPage({
             type="readonly"
           />
           <FormField
-            label="身份证号码/税号"
+            label="身份证/税号"
             value={formData.sellerIdNumber}
             type="readonly"
           />
           <FormField
-            label="卖方"
+            label="联系电话"
             value={formData.sellerPhone}
             type="readonly"
           />
@@ -242,13 +252,13 @@ export default function InvoiceApplyPage({
         <div className="flex gap-3">
           <button
             onClick={handleSave}
-            className="flex-1 h-11 text-sm font-medium text-foreground bg-card border border-border rounded-lg hover:bg-secondary transition-colors"
+            className="flex-1 h-12 text-sm font-semibold text-foreground bg-secondary border border-border rounded-xl hover:bg-muted transition-colors btn-press"
           >
             仅保存
           </button>
           <button
             onClick={handleSaveAndSubmit}
-            className="flex-1 h-11 text-sm font-medium text-primary-foreground bg-primary rounded-lg hover:bg-primary/90 transition-colors"
+            className="flex-1 h-12 text-sm font-semibold text-primary-foreground gradient-primary rounded-xl hover:opacity-90 transition-opacity btn-press"
           >
             保存并开票
           </button>

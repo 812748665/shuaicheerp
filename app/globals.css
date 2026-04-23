@@ -1,46 +1,91 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f5f5f5;
-  --foreground: #333333;
-  --card: #ffffff;
-  --card-foreground: #333333;
-  --primary: #1890ff;
+  /* 黄色主题色系 */
+  --primary: #F5A623;
+  --primary-light: #FFD074;
+  --primary-dark: #D4880F;
   --primary-foreground: #ffffff;
-  --secondary: #f0f0f0;
+  
+  /* 背景色 */
+  --background: #FAFAFA;
+  --background-elevated: #ffffff;
+  
+  /* 前景色 */
+  --foreground: #1A1A1A;
+  --foreground-secondary: #666666;
+  --foreground-tertiary: #999999;
+  
+  /* 卡片 */
+  --card: #ffffff;
+  --card-foreground: #1A1A1A;
+  
+  /* 次要色 */
+  --secondary: #F5F5F5;
   --secondary-foreground: #666666;
-  --muted: #999999;
+  
+  /* 静音色 */
+  --muted: #E5E5E5;
   --muted-foreground: #999999;
-  --border: #e8e8e8;
-  --input: #ffffff;
-  --ring: #1890ff;
-  --destructive: #ff4d4f;
-  --success: #52c41a;
-  --warning: #faad14;
-  --info: #1890ff;
-  --radius: 0.5rem;
+  
+  /* 边框 */
+  --border: #EEEEEE;
+  --border-light: #F5F5F5;
+  
+  /* 输入 */
+  --input: #F8F8F8;
+  --input-border: #E8E8E8;
+  --ring: #F5A623;
+  
+  /* 状态色 */
+  --destructive: #E53935;
+  --destructive-light: #FFEBEE;
+  --success: #43A047;
+  --success-light: #E8F5E9;
+  --warning: #F5A623;
+  --warning-light: #FFF8E1;
+  --info: #1E88E5;
+  --info-light: #E3F2FD;
+  
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 16px;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-elevated: var(--background-elevated);
   --color-foreground: var(--foreground);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-tertiary: var(--foreground-tertiary);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
+  --color-primary-dark: var(--primary-dark);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
+  --color-border-light: var(--border-light);
   --color-input: var(--input);
+  --color-input-border: var(--input-border);
   --color-ring: var(--ring);
   --color-destructive: var(--destructive);
+  --color-destructive-light: var(--destructive-light);
   --color-success: var(--success);
+  --color-success-light: var(--success-light);
   --color-warning: var(--warning);
+  --color-warning-light: var(--warning-light);
   --color-info: var(--info);
+  --color-info-light: var(--info-light);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --radius-DEFAULT: var(--radius);
+  --radius-sm: var(--radius-sm);
+  --radius-lg: var(--radius-lg);
 }
 
 * {
@@ -54,7 +99,9 @@ body {
   color: var(--foreground);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* 自定义滚动条 */
@@ -68,10 +115,39 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d9d9d9;
-  border-radius: 2px;
+  background: #E0E0E0;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #bfbfbf;
+  background: #BDBDBD;
+}
+
+/* 安全区域 */
+.safe-area-inset-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* 卡片阴影 */
+.card-shadow {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.card-shadow-lg {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+/* 黄色渐变背景 */
+.gradient-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+}
+
+/* 输入框聚焦动画 */
+input:focus, select:focus, textarea:focus {
+  outline: none;
+}
+
+/* 按钮点击效果 */
+.btn-press:active {
+  transform: scale(0.98);
 }

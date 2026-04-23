@@ -1,4 +1,4 @@
-import { ChevronDown } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 interface DetailRowProps {
   label: string;
@@ -14,14 +14,16 @@ export function DetailRow({
   onClick,
 }: DetailRowProps) {
   const content = (
-    <div className="flex items-start py-3 border-b border-border bg-card">
-      <span className="w-24 flex-shrink-0 text-sm text-muted pl-4">
-        {label}：
+    <div className="flex items-start py-3.5 border-b border-border-light last:border-b-0">
+      <span className="w-28 flex-shrink-0 text-sm text-foreground-secondary pl-4">
+        {label}
       </span>
-      <div className="flex-1 flex items-start justify-between pr-4">
-        <span className="text-sm text-foreground break-all">{value}</span>
+      <div className="flex-1 flex items-start justify-between pr-4 min-w-0">
+        <span className="text-sm text-foreground break-all leading-relaxed flex-1">
+          {value}
+        </span>
         {showArrow && (
-          <ChevronDown className="w-4 h-4 text-muted flex-shrink-0 ml-2" />
+          <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0 ml-2 mt-0.5" />
         )}
       </div>
     </div>

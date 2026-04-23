@@ -7,11 +7,6 @@ import { TabSwitch } from "@/components/tab-switch";
 import { InvoiceList } from "@/components/invoice-list";
 import { mockInvoices, mockSalesInvoices } from "@/types/invoice";
 
-const tabs = [
-  { key: "purchase", label: "采购发票" },
-  { key: "sales", label: "销售发票" },
-];
-
 export default function InvoiceManagementPage() {
   const [activeTab, setActiveTab] = useState("purchase");
   const [searchValue, setSearchValue] = useState("");
@@ -31,13 +26,19 @@ export default function InvoiceManagementPage() {
     );
   });
 
+  const tabs = [
+    { key: "purchase", label: "采购发票", count: mockInvoices.length },
+    { key: "sales", label: "销售发票", count: mockSalesInvoices.length },
+  ];
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <PageHeader
         title="发票管理"
         showBack={true}
         showDepartment={true}
-        departmentName="部门"
+        departmentName="全部部门"
+        variant="primary"
       />
 
       <SearchBar
